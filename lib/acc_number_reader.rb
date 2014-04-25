@@ -1,11 +1,53 @@
+require_relative '../lib/string_acc_number'
 class AccNumberReader
-  attr_accessor :account_number
-
-  def initialize(file_path)
+  attr_accessor :account_numbers
+  attr_reader :test_3line_acc
+  def initialize(file_path, acc_length)
     @file_path = file_path
+    @test_3line_acc = [
+          " _ "+
+          "| |"+
+	  "|_|",
+
+	  "   "+
+	  "  |"+
+	  "  |",
+
+	  " _ "+
+	  " _|"+
+	  "|_ ",
+
+	  " _ "+
+	  " _|"+
+	  " _|",
+
+	  "   "+
+	  "|_|"+
+	  "  |",
+
+	  " _ "+
+	  "|_ "+
+	  " _|",
+
+	  " _ "+
+	  "|_ "+
+	  "|_|",
+
+	  " _ "+
+	  "  |"+
+	  "  |",
+
+	  " _ "+
+	  "|_|"+
+	  "|_|",
+
+	  " _ "+
+	  "|_|"+
+	  " _|"]
+
     @acc_index = 0 
-    @account_number  = Array.new(8) {Array.new(10) {""}}
-    #read_account_numbers
+    @account_numbers  = Array.new
+    read_account_numbers(acc_length)
   end
 
   def account_number
@@ -13,26 +55,36 @@ class AccNumberReader
   end
 
   def first
-    @account_number[0]
+    @account_numbers[0]
   end
   
-  def read_account_numbers
-    file = File.open(@file_path, "r+")
-    while !file.eof?
-      3.times do
-	line = file.readline
-	build_digits(line)
-    end
-      file.readline
-      @acc_index += 1
+  def each
+    @account_numbers.each do |acc_num|
+      yield acc_num
     end
   end
-    def build_digits(line)
-      digit = 0
+
+  private
+
+  def read_account_numbers(acc_length)
+    file = File.open(@file_path, "r+")
+    while !file.eof?
+    tmp_number = Array.new(acc_length) {""}
+      3.times do
+	build_digits(file.readline,tmp_number)
+    end
+      file.readline unless file.eof?
+      @account_numbers.push(StringAccountNumber.new(tmp_number))
+      @acc_index += 1
+    end
+    file.close
+  end
+    def build_digits(line, acc_number)
+      index = 0
       digit_third = line.gsub(/.../)
        digit_third.each do |section|
-         @account_number[@acc_index][digit] << section
-	digit += 1
+         acc_number[index] << section
+ 	 index += 1
       end
     end
 end
