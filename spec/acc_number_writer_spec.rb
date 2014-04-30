@@ -5,11 +5,12 @@ require_relative '../lib/acc_number_writer'
 
 
 describe AccNumberWriter do
-  input_file = 'input/invalid_illegal_acc.input'
-  output_file = 'output/invalid_illegal_test.op'
-  output2_file = 'output/invalid_illegal_test2.op'
-  expected_file = 'input/invalid_illegal_test_expected.input'
+  input_file =     'input/invalid_illegal_acc.input'
+  output_file =    'output/invalid_illegal_test.op'
+  output2_file =   'output/invalid_illegal_test2.op'
+  expected_file =  'input/invalid_illegal_test_expected.input'
   expected_file2 = 'input/invalid_illegal_test2_expected.input'
+
   let(:acc_number_reader) {AccNumberReader.new(input_file,9)}
   let(:acc_validator)     {AccountValidator.new}
   let(:acc_writer)        {AccNumberWriter.new(output_file)}
@@ -41,7 +42,7 @@ describe AccNumberWriter do
        account.set_account_number(converter.to_single_line(account))
        acc_validator.update_account_status(account)
        if account.status == acc_validator.err || account.status == acc_validator.ill
-	 converter.check_errors(account) 
+	 converter.process_errors(account) 
        end
       end
       results2 = Array.new
