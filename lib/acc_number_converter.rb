@@ -17,16 +17,6 @@ class AccNumberConverter
 				" _   |  |" => '7',
 				" _ |_||_|" => '8', 
 				" _ |_| _|" => '9'}
-    @single_to_multiple_char_= {'0' => " _ | ||_|",
-			        '1' => "     |  |",
-				'2' => " _  _||_ ", 
-				'3' => " _  _| _|",
-				'4' => "   |_|  |",
-				'5' => " _ |_  _|", 
-				'6' => " _ |_ |_|",
-				'7' => " _   |  |",
-				'8' => " _ |_||_|", 
-				'9' => " _ |_| _|"}
   end
 
   def process_errors(acc_number)
@@ -38,8 +28,10 @@ class AccNumberConverter
       potential_account_numbers(str_num_arr,number_arr) { |pot_number| str_potentials.push(pot_number)}
       if  str_potentials.count == 1
         acc_number.set_account_number(str_potentials[0])
+	acc_number.set_number(to_3_line(str_potentials[0]))
       elsif str_potentials.count > 1
         acc_number.set_account_number(str_potentials[0])
+	acc_number.set_number(to_3_line(str_potentials[0]))
       end
         str_potentials.each do |element| 
 	 acc_number.add_alternate_number(element.dup) 
