@@ -5,9 +5,10 @@ class StringAccountNumber < AccountNumber
   
   def initialize(acc_num)
     @string_number = acc_num
+    super
   end
 
-  def string_number(str_num)
+  def set_number(str_num)
     @string_number = str_num
   end
 

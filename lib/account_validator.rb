@@ -1,21 +1,30 @@
 class AccountValidator
+  attr_reader :unknown, :multiple, :amb, :err, :ill
 
-  ERR = 'ERR'
-  ILLEGAL = 'ILL'
   def initialize
-
+    @unknown = '?'
+    @multiple = '$'
+    @amb = 'AMB'
+    @err = 'ERR'
+    @ill = 'ILL'
   end
 
   def check_sum?(acc_number)
-    sum(acc_number) % 11 == 0
+    acc_number.account_number.include?(@unknown) ? false : sum(acc_number) % 11 == 0
   end
 
   def update_account_status(acc_number)
- 
-    if acc_number.contains?('?')
-      acc_number.set_status(ILLEGAL)
-      elsif !check_sum?(acc_number)
-          acc_number.set_status(ERR)
+    acc_number.reset_status
+
+    if acc_number.contains?(@unknown) 
+      acc_number.set_status(@ill)
+    else
+      if acc_number.alternates_count > 1 
+	acc_number.set_status(@amb)
+      end
+      if !check_sum?(acc_number)
+	acc_number.set_status(@err)
+      end
     end
   end
 

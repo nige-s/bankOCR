@@ -1,6 +1,6 @@
 require_relative '../lib/string_acc_number'
 class AccNumberReader
-  attr_accessor :account_numbers
+  attr_accessor :account_numbers, :file_path
   attr_reader :test_3line_acc
   def initialize(file_path, acc_length)
     @file_path = file_path
