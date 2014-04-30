@@ -87,7 +87,7 @@ class AccNumberConverter
     end
   end
 
-  def is_potential?(option)
+  def get_replacement_number(option)
       res = digit_to_number(option.join)
       res != @validator.unknown ?  res : @validator.unknown
   end
@@ -102,21 +102,21 @@ class AccNumberConverter
 	when 0,2 
 	  if char == PIPE || char == U_SCORE
 	    replacement[index] = BLANK
-	    is_potential?(replacement)
+	    get_replacement_number(replacement)
 	  end
 	    replacement[index] = char
 	when 1,4,7
 	  
 	  if char != U_SCORE
 	    replacement[index] = U_SCORE
-	    is_potential?(replacement)
+	    get_replacement_number(replacement)
 	  end
 	    replacement[index] = char
 	when 3,5,6,8
 
 	  if char !=  PIPE
 	    replacement[index] = PIPE
-	    is_potential?(replacement)
+	    get_replacement_number(replacement)
 	  end
 	    replacement[index] = char
       end
