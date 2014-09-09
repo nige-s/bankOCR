@@ -33,7 +33,7 @@ describe AccNumberWriter do
           expected.push(line.strip)
 	end
       (0..results.count).each do |index|
-        results[index].should == expected[index]
+        expect(results[index]).to eq(expected[index])
       end
     end
 
@@ -59,7 +59,7 @@ describe AccNumberWriter do
 	end
 
       (0..results2.count).each do |index|
-        results2[index].should == expected[index]
+        expect(results2[index]).to eq(expected[index])
       end
     end
   end

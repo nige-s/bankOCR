@@ -48,13 +48,14 @@ describe AccNumberConverter do
   context "with correctly formed digit - 0" do
     it "returns an integer - 0" do
       digit = " _ | ||_|"
-      acc_converter.digit_to_number(digit).should == '0'
+      res = acc_converter.digit_to_number(digit)
+      expect(res).to eq('0')
     end
   end
   context "with incorrectly formed digit - 0" do
     it "returns nil" do
       digit = " _ |     "
-      acc_converter.digit_to_number(digit).should == '?'
+      expect(acc_converter.digit_to_number(digit)).to eq('?')
     end
   end
 
@@ -64,7 +65,7 @@ describe AccNumberConverter do
       expected = Array.new
       converted_arr = acc_converter.to_3_line(account_number)
       (0..9).each do |index|
-        converted_arr[index].should == digits[index]
+        expect(converted_arr[index]).to eq(digits[index])
       end
     end
   end

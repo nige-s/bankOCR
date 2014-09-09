@@ -53,7 +53,7 @@ describe AccNumberReader do
       str_acc_number = acc_reader.first
       index = 0
       str_acc_number.each_digit do |digit|
-	digit.should == digits[index]
+	expect(digit).to eq(digits[index])
 	index += 1
       end
     end
@@ -62,14 +62,14 @@ describe AccNumberReader do
       str_acc_number = acc_reader.first
       index = 0
         str_acc_number.each_digit do |digit|
-          converter.digit_to_number(digit).should == index.to_s
+          expect(converter.digit_to_number(digit)).to eq(index.to_s)
         index += 1
       end
     end
 
     it "converts a read-in digit acc number and returns an integer version" do
       str_acc_number = acc_reader.first
-      converter.to_single_line(str_acc_number). should == "0123456789"
+      expect(converter.to_single_line(str_acc_number)).to eq("0123456789")
     end
   end
 end
@@ -82,7 +82,7 @@ describe AccNumberReader do
       acc_index = 0
       acc_number_reader.each do |str_number|
         str_number.each_digit do |digit|
-          digit.should == digits[acc_index]
+          expect(digit).to eq(digits[acc_index])
 	end
 	acc_index += 1
       end
